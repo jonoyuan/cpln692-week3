@@ -9,7 +9,7 @@
     <!--left panel-->
     <div style="position: absolute; left: 0px; width: 400px; top: 0; bottom: 0;"></div>
     <!--map-->
-    <div id="map" style="position: absolute; right: 0; left: 400px; top: 0; bottom: 0;"></div>
+    <div id="map" style="position: absolute; right: 0; left: 0; top: 0; bottom: 0;"></div>
 
     <!--javascript imports-->
     <script src="leaflet.js"></script>
@@ -75,9 +75,41 @@
 
     ===================== */
 
-    L.marker([0, 0]).addTo(map);
-    L.marker([0, 0]).addTo(map);
-    L.marker([0, 0]).addTo(map);
+    //L.marker([39.952447, -75.175808]).addTo(map);
+    //L.marker([39.952368, -75.192685]).addTo(map);
+    //L.marker([39.957252, -75.153620]).addTo(map);
+
+    //Task 1: Data Storage
+    var restaurantData = [[39.952447, -75.175808, "home"],
+                          [39.952368, -75.192685, "school"],
+                          [39.957252, -75.153620, "work"]];
+
+    //Task 2: Process Data
+    var task2 = function(restaurantData) {
+      for (let i = 0; i < restaurantData.length; i++) {
+        let rd = restaurantData[i];
+        L.marker([rd[0],rd[1]])
+          .addTo(map);
+      }
+    }
+    //task2(restaurantData);
+
+    //Task 3: Add Two Additional Markers
+    restaurantData.push(
+      [39.930618, -75.168113, "dolphin"],
+      [39.965571, -75.180961, "art museum"]
+    )
+
+    //Task 4: Add Popups to Markers
+    var task4 = function(restaurantData) {
+      for (let i = 0; i < restaurantData.length; i++) {
+        let rd = restaurantData[i];
+        L.marker([rd[0],rd[1]])
+          .addTo(map)
+          .bindPopup(rd[2]);
+      }
+    }
+    task4(restaurantData);
 
     /* =====================
 

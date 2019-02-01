@@ -9,18 +9,18 @@
     <!--left panel-->
     <div style="position: absolute; left: 0px; width: 400px; top: 0; bottom: 0;"></div>
     <!--map-->
-    <div id="map" style="position: absolute; right: 0; left: 400px; top: 0; bottom: 0;"></div>
+    <div id="map" style="position: absolute; right: 0; left: 0; top: 0; bottom: 0;"></div>
 
     <!--javascript imports-->
     <script src="leaflet.js"></script>
-    <script src="part4-data-clean.js"></script>
-    <script src="part4-data-dirty.js"></script>
+    <script src="part3-data-clean.js"></script>
+    <script src="part3-data-dirty.js"></script>
 
     <script>
 
     /* =====================
 
-    # Lab 1, Part 4 — Data Transformation
+    # Lab 1, Part 3 — Data Transformation
 
     ## Introduction
 
@@ -55,15 +55,15 @@
     Often, our data will contain inconsistencies that can cause problems in our
     code. In the code below, switch out "bikeArrayClean" with "bikeArrayDirty".
     If you reload your map now, the markers should be gone. You can review the
-    dirty data in part4-data-dirty.js.
+    dirty data in parte-data-dirty.js.
 
-    Without modifying part4-data-dirty.js, change your code to account for the
+    Without modifying part3-data-dirty.js, change your code to account for the
     dirty data. Note: it is okay if your new code ignores a few of the points,
     if their formatting is especially wrong. But it should accommodate most points.
 
     ===================== */
 
-    var data = bikeArrayClean;
+    var data = bikeArrayDirty;
 
     /* =====================
 
@@ -71,7 +71,60 @@
 
     ===================== */
 
+    var dataCleaned = []
 
+    data.forEach(station => {
+      let lat = undefined;
+      let lon = undefined;
+      let name = undefined;
+      let stat = undefined;
+
+      station.forEach(row => {
+
+        //clear trailing spaces
+        row = row.trim();
+        if (row.includes("BIKESHAREDATA.CSV,BIKES,BICYCLES")) {
+          row = undefined;
+        }
+
+        //check if value is a number
+        if (Number.isNaN(Number(row)) === false) {
+
+          let num = Number(row);
+
+          //latitude
+          if (num > 35 && num < 45) {
+            lat = num;
+
+          //longitude
+        } else if (num > -80 && num < -70) {
+            lon = num;
+          }
+      //non-number values
+      } else if (row !== undefined) {
+
+          //remove ' stations' from non-number values
+          let txt = row.replace(' stations','');
+
+          //strings are names and numbers are # stations
+          if (Number.isNaN(Number(txt)) === true) {
+            name = txt;
+          } else {
+            stat = Number(txt);
+          }
+        }
+      })
+
+      dataCleaned.push([lat,lon,name,stat])
+
+    })
+
+    var dataFiltered = []
+    dataCleaned.forEach(station => {
+      if (station[3] > 20) {
+        dataFiltered.push(station);
+      }
+    })
 
     /* =====================
 
@@ -98,7 +151,22 @@
 
     ===================== */
 
+    var addStations = (data) => {
+      for (let i = 0; i < data.length; i++) {
+        let lat = data[i][0];
+        let lon = data[i][1];
+        let name = "Unknown name";
+        let stat = "Unknown";
+        if (data[i][2] !== undefined) {name = data[i][2];}
+        if (data[i][3] !== undefined) {stat = data[i][3];}
+        L.marker([lat,lon])
+          .addTo(map)
+          .bindPopup(`<strong>${name}</strong><br>
+                      ${stat} stations`);
+      }
+    }
 
+    addStations(dataFiltered);
 
     /* =====================
 

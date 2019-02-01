@@ -4,6 +4,27 @@
   </head>
   <body>
 
+    <h1>FizzBuzz custom</h1>
+
+    <form id="fbform">
+      <p>
+        Print numbers in the range
+        <input type="text" size="1" name="lower" value="1"></input>
+        to
+        <input type="text" size="1" name="upper" value="100"></input>,
+        <br>but replacing multiples of
+        <input type="text" size="1" name="fnum" value="3"></input>
+        with
+        <input type="text" size="1" name ="ftxt" value="Fizz"></input>,
+        <br>and multiples of
+        <input type="text" size="1" name="bnum" value="5"></input>
+        with <input type="text" size="1" name ="btxt" value="Buzz"></input>.
+      </p>
+      <p><input type="button" value="Go!" onClick="gobutton();event.preventDefault();"></input></p>
+    </form>
+
+    <div id="output" style="font-family:monospace;padding:10px;"></div>
+
     <script>
 
     /* =====================
@@ -27,7 +48,60 @@
 
     ===================== */
 
+    var fizzbuzz = (range,factors,text) => {
 
+      let min = range[0];
+      let max = range[1];
+      let fnum = factors[0];
+      let bnum = factors[1];
+      let ftxt = "Fizz";
+      let btxt = "Buzz";
+      if (text !== undefined) {
+        ftxt = text[0];
+        btxt = text[1];
+      }
+      let fbtxt = ftxt+btxt;
+
+      let seq = [];
+      for (let i = min; i <= max; i++) {seq.push(i);}
+
+      let seqfb = [];
+      seq.forEach((x) => {
+        if (x%3 === 0 && x%5 === 0) {
+          seqfb.push(fbtxt);
+        } else if (x%3 === 0) {
+          seqfb.push(ftxt);
+        } else if (x%5 === 0) {
+          seqfb.push(btxt);
+        } else {seqfb.push(x);}
+      })
+
+      return seqfb;
+
+    }
+
+    var gobutton = function() {
+
+      document.getElementById('output').innerHTML = ''
+
+      let range = [
+        document.getElementById('fbform').elements['lower'].value,
+        document.getElementById('fbform').elements['upper'].value
+      ];
+      let factors = [
+        document.getElementById('fbform').elements['fnum'].value,
+        document.getElementById('fbform').elements['bnum'].value
+      ]
+      let text = [
+        document.getElementById('fbform').elements['ftxt'].value,
+        document.getElementById('fbform').elements['btxt'].value
+      ]
+
+      fizzbuzz(range,factors,text).forEach(out => {
+        document.getElementById('output').innerHTML += (out+'<br>');
+      })
+
+    }
 
     /* =====================
 
