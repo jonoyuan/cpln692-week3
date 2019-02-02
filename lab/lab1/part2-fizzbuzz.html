@@ -63,15 +63,15 @@
       let fbtxt = ftxt+btxt;
 
       let seq = [];
-      for (let i = min; i <= max; i++) {seq.push(i);}
+      while (min <= max) {seq.push(i++);}
 
       let seqfb = [];
       seq.forEach((x) => {
-        if (x%3 === 0 && x%5 === 0) {
+        if (x%fnum === 0 && x%bnum === 0) {
           seqfb.push(fbtxt);
-        } else if (x%3 === 0) {
+        } else if (x%fnum === 0) {
           seqfb.push(ftxt);
-        } else if (x%5 === 0) {
+        } else if (x%bnum === 0) {
           seqfb.push(btxt);
         } else {seqfb.push(x);}
       })
@@ -85,12 +85,12 @@
       document.getElementById('output').innerHTML = ''
 
       let range = [
-        document.getElementById('fbform').elements['lower'].value,
-        document.getElementById('fbform').elements['upper'].value
+        Number(document.getElementById('fbform').elements['lower'].value),
+        Number(document.getElementById('fbform').elements['upper'].value)
       ];
       let factors = [
-        document.getElementById('fbform').elements['fnum'].value,
-        document.getElementById('fbform').elements['bnum'].value
+        Number(document.getElementById('fbform').elements['fnum'].value),
+        Number(document.getElementById('fbform').elements['bnum'].value)
       ]
       let text = [
         document.getElementById('fbform').elements['ftxt'].value,
@@ -102,6 +102,10 @@
       })
 
     }
+
+    document.getElementById('fbform').onkeydown = function(e){
+      if(e.keyCode == 13){gobutton();}
+    };
 
     /* =====================
 
