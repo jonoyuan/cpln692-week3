@@ -1,8 +1,57 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!--stylesheet imports-->
+    <link rel="stylesheet" href="leaflet.css" />
   </head>
   <body>
+
+    <!--left panel-->
+    <div style="position: absolute; left: 0px; right:400px; top: 0; bottom: 0; padding:8px;">
+
+          <h1>FizzBuzz custom</h1>
+
+          <form id="fbform">
+            <p>
+              Print numbers in the range
+              <input type="text" size="1" name="lower" value="1"></input>
+              to
+              <input type="text" size="1" name="upper" value="100"></input>,
+              <br>but replacing multiples of
+              <input type="text" size="1" name="fnum" value="3"></input>
+              with
+              <input type="text" size="1" name ="ftxt" value="Fizz"></input>,
+              <br>and multiples of
+              <input type="text" size="1" name="bnum" value="5"></input>
+              with <input type="text" size="1" name ="btxt" value="Buzz"></input>.
+            </p>
+            <p><input type="button" value="Go!" onClick="gobutton();event.preventDefault();"></input></p>
+          </form>
+
+          <div id="output" style="font-family:monospace;padding:10px;"></div>
+
+    </div>
+    <!--map-->
+    <div id="map" style="position: absolute; right: 0; left: 400px; top: 0; bottom: 0;"></div>
+
+    <script src="leaflet.js"></script>
+
+    <script>
+
+    var map = L.map('map', {
+      center: [39.9522, -75.1639],
+      zoom: 14
+    });
+
+    var Stamen_TonerLite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
+      attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      subdomains: 'abcd',
+      minZoom: 0,
+      maxZoom: 20,
+      ext: 'png'
+    }).addTo(map);
+
+    </script>
 
     <!-- Javascript Imports -->
     <script src="underscore.js"></script>
