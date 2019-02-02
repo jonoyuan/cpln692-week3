@@ -1,11 +1,13 @@
 # Week 3
 
-*As always: make a copy of this repository to commit changes to*
+*As always: Fork and clone this repository to commit changes to*
 
 ## Class Outline
 
+[slides](https://docs.google.com/presentation/d/1UwmuDN15zy2aA_-OKYsHPJZ5yre6nsOwuYcnfzq9yP0/edit#slide=id.g4dec19d8e4_0_4)
+
 ### Week 2 Review & Introduction
-- Posting in Gitter
+- Posting in Gitter // Making issues
 - Functions
 - Data structures
 
@@ -41,5 +43,6 @@
 
 <sup>*</sup>Mostly!
 
-## Homework Assignment (Due: Wednesday, February 1)
-- Complete [Week 3 Labs](lab) (Lab 2, Part 4 is an Optional Challenge)
+## Homework Assignment (Due: Thursday, February 7th)
+- Complete Week 3 [Lab1](lab/lab1) (entirely)
+- Complete week 3 [Lab2](lab/lab2) (parts 1 and 4 only)
