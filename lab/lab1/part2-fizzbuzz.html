@@ -63,7 +63,7 @@
       let fbtxt = ftxt+btxt;
 
       let seq = [];
-      while (min <= max) {seq.push(i++);}
+      for (let i = min; i <= max; i++) {seq.push(i);}
 
       let seqfb = [];
       seq.forEach((x) => {
@@ -99,6 +99,7 @@
 
       fizzbuzz(range,factors,text).forEach(out => {
         document.getElementById('output').innerHTML += (out+'<br>');
+        console.log(out);
       })
 
     }
